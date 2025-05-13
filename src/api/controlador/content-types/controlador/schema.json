@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "controladores",
+  "info": {
+    "singularName": "controlador",
+    "pluralName": "controladores",
+    "displayName": "Controladores"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "Question": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}
