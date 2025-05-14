@@ -1,26 +1,42 @@
 {
-  "kind": "singleType",
-  "collectionName": "controladores",
+  "kind": "collectionType",
+  "collectionName": "controladors",
   "info": {
     "singularName": "controlador",
-    "pluralName": "controladores",
-    "displayName": "Controladores"
+    "pluralName": "controladors",
+    "displayName": "Controlador",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "Title": {
+    "code": {
       "type": "string",
       "required": true,
-      "unique": false
+      "unique": true
     },
-    "Question": {
+    "ask": {
       "type": "string",
       "required": true
     },
     "description": {
-      "type": "string"
+      "type": "text",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
     }
   }
 }

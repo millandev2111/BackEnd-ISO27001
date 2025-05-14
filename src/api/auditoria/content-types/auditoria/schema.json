@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "auditorias",
+  "info": {
+    "singularName": "auditoria",
+    "pluralName": "auditorias",
+    "displayName": "Auditoria",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "En Progreso",
+        "Completada"
+      ]
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "controladors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::controlador.controlador"
+    }
+  }
+}

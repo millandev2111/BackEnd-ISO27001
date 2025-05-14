@@ -373,21 +373,67 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiControladorControlador extends Struct.SingleTypeSchema {
-  collectionName: 'controladores';
+export interface ApiAuditoriaAuditoria extends Struct.CollectionTypeSchema {
+  collectionName: 'auditorias';
   info: {
-    displayName: 'Controladores';
-    pluralName: 'controladores';
+    description: '';
+    displayName: 'Auditoria';
+    pluralName: 'auditorias';
+    singularName: 'auditoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    controladors: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::controlador.controlador'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    endDate: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::auditoria.auditoria'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date;
+    state: Schema.Attribute.Enumeration<['En Progreso', 'Completada']>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiControladorControlador extends Struct.CollectionTypeSchema {
+  collectionName: 'controladors';
+  info: {
+    description: '';
+    displayName: 'Controlador';
+    pluralName: 'controladors';
     singularName: 'controlador';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    ask: Schema.Attribute.String & Schema.Attribute.Required;
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -395,8 +441,9 @@ export interface ApiControladorControlador extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    Question: Schema.Attribute.String & Schema.Attribute.Required;
-    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D']> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -912,6 +959,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::auditoria.auditoria': ApiAuditoriaAuditoria;
       'api::controlador.controlador': ApiControladorControlador;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
