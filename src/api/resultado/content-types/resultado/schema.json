@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "resultados",
+  "info": {
+    "singularName": "resultado",
+    "pluralName": "resultados",
+    "displayName": "Resultado"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "conforme",
+        "no_conforme",
+        "observacion",
+        "no_aplica"
+      ]
+    },
+    "comentario": {
+      "type": "text"
+    },
+    "evidencias": {
+      "type": "json"
+    },
+    "fechaEvaluacion": {
+      "type": "datetime"
+    },
+    "evaluadoPor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "resultados"
+    },
+    "controlador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::controlador.controlador"
+    },
+    "auditoria": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::auditoria.auditoria",
+      "inversedBy": "resultados"
+    }
+  }
+}

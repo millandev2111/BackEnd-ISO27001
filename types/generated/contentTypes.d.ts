@@ -401,6 +401,10 @@ export interface ApiAuditoriaAuditoria extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    resultados: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::resultado.resultado'
+    >;
     startDate: Schema.Attribute.Date;
     state: Schema.Attribute.Enumeration<['En Progreso', 'Completada']>;
     title: Schema.Attribute.String;
@@ -444,6 +448,51 @@ export interface ApiControladorControlador extends Struct.CollectionTypeSchema {
     title: Schema.Attribute.String & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D']> &
       Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResultadoResultado extends Struct.CollectionTypeSchema {
+  collectionName: 'resultados';
+  info: {
+    displayName: 'Resultado';
+    pluralName: 'resultados';
+    singularName: 'resultado';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    auditoria: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::auditoria.auditoria'
+    >;
+    comentario: Schema.Attribute.Text;
+    controlador: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::controlador.controlador'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    evaluadoPor: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    evidencias: Schema.Attribute.JSON;
+    fechaEvaluacion: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::resultado.resultado'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tipo: Schema.Attribute.Enumeration<
+      ['conforme', 'no_conforme', 'observacion', 'no_aplica']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -933,6 +982,10 @@ export interface PluginUsersPermissionsUser
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resultados: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::resultado.resultado'
+    >;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
@@ -961,6 +1014,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::auditoria.auditoria': ApiAuditoriaAuditoria;
       'api::controlador.controlador': ApiControladorControlador;
+      'api::resultado.resultado': ApiResultadoResultado;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -39,6 +39,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::controlador.controlador"
+    },
+    "resultados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::resultado.resultado",
+      "mappedBy": "auditoria"
     }
   }
 }
