@@ -418,6 +418,40 @@ export interface ApiAuditoriaAuditoria extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCapacitacionCapacitacion
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'capacitacions';
+  info: {
+    displayName: 'Capacitacion';
+    pluralName: 'capacitacions';
+    singularName: 'capacitacion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::capacitacion.capacitacion'
+    > &
+      Schema.Attribute.Private;
+    pregunta: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    respuesta: Schema.Attribute.Enumeration<['S\u00ED', 'No', 'Medianamente']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiControladorControlador extends Struct.CollectionTypeSchema {
   collectionName: 'controladors';
   info: {
@@ -958,6 +992,10 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    capacitacions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::capacitacion.capacitacion'
+    >;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1013,6 +1051,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::auditoria.auditoria': ApiAuditoriaAuditoria;
+      'api::capacitacion.capacitacion': ApiCapacitacionCapacitacion;
       'api::controlador.controlador': ApiControladorControlador;
       'api::resultado.resultado': ApiResultadoResultado;
       'plugin::content-releases.release': PluginContentReleasesRelease;

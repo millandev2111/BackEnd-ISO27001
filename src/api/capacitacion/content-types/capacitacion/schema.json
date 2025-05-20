@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "capacitacions",
+  "info": {
+    "singularName": "capacitacion",
+    "pluralName": "capacitacions",
+    "displayName": "Capacitacion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "pregunta": {
+      "type": "string"
+    },
+    "respuesta": {
+      "type": "enumeration",
+      "enum": [
+        "Sí",
+        "No",
+        "Medianamente"
+      ]
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "capacitacions"
+    }
+  }
+}
