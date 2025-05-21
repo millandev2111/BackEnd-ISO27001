@@ -4,7 +4,7 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:3000'], // explícitamente donde corre tu frontend
+      origin: ['https://frontendiso27001.vercel.app'], // explícitamente donde corre tu frontend
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       credentials: true,
